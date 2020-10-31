@@ -1,24 +1,10 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-component',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  constructor(private http: HttpClient){
-  }
-
-  testRequest(){
-    this.http.get('/api/test')
-      .subscribe(
-        response => {
-        console.log('success: ' + response);
-      },
-      error => {
-        console.log('error: ' + error);
-      }
-      )
+  constructor(){
   }
 }
