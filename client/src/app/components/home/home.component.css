@@ -34,12 +34,16 @@
     cursor: pointer;
 }
 
-.card-container .card:not(.highlight-card):hover {
+.card-active {
+    box-shadow: 0 0 3px 1px grey inset;
+}
+
+.card-container .card-inactive:not(.highlight-card):hover {
     transform: translateY(-3px);
     box-shadow: 0 4px 17px rgba(0, 0, 0, 0.35);
 }
 
-.card-container .card:not(.highlight-card):hover .material-icons path {
+.card-container .card-inactive:not(.highlight-card):hover .material-icons path {
     fill: rgb(105, 103, 103);
 }
 
@@ -48,7 +52,7 @@
 }
 
 .mat-form-field {
-    width: 1000px;
+    min-width: 1000px;
     font-size: 20px;
 }
 
@@ -68,4 +72,18 @@
 .file-upload-icon.cancel {
     left: 980px;
     top: 20px;
+}
+
+.text-processing-container {
+    margin-top: 40px;
+}
+
+.text-processing-spinner {
+    display: flex;
+    justify-content: center;
+}
+
+.text-processing-description {
+    text-align: center;
+    margin-top: 25px;
 }

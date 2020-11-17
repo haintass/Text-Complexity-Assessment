@@ -5,6 +5,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MaterialFileInputModule } from 'ngx-material-file-input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
     imports: [
@@ -12,14 +13,16 @@ import { MaterialFileInputModule } from 'ngx-material-file-input';
         MatInputModule,
         MatFormFieldModule,
         MatIconModule,
-        MaterialFileInputModule
+        MaterialFileInputModule,
+        MatProgressSpinnerModule
     ],
     exports: [
         MatButtonToggleModule,
         MatInputModule,
         MatFormFieldModule,
         MatIconModule,
-        MaterialFileInputModule
+        MaterialFileInputModule,
+        MatProgressSpinnerModule
     ]
 })
 export class MaterialModule {}
