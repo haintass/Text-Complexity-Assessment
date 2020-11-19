@@ -5,6 +5,7 @@
         "uploadFileOption": "Upload file",
         "enterYourText": "Enter Your Text",
         "uploadFile": "Upload File (.txt)",
+        "processText": "Estimate",
         "textIsProcessing": "Text is processing... Please wait"
     },
     "header": {

@@ -5,6 +5,7 @@
         "uploadFileOption": "Загрузить файл",
         "enterYourText": "Введите текст",
         "uploadFile": "Выберите файл (.txt)",
+        "processText": "Оценить",
         "textIsProcessing": "Текст обрабатывается... Пожалуйста подождите"
     },
     "header": {

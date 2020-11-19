@@ -60,20 +60,6 @@
       height: 400px;
 }
 
-.file-upload-icon {
-    position: absolute;
-    cursor: pointer;
-}
-
-.file-upload-icon.folder {
-    left: 970px;
-}
-
-.file-upload-icon.cancel {
-    left: 980px;
-    top: 20px;
-}
-
 .text-processing-container {
     margin-top: 40px;
 }
@@ -86,4 +72,11 @@
 .text-processing-description {
     text-align: center;
     margin-top: 25px;
+}
+
+.upload-file-btn {
+    font-size: 16pt;
+    width: 190px;
+    height: 45px;
+    left: 410px;
 }

@@ -1,0 +1,9 @@
+<mat-form-field>
+    <ngx-mat-file-input (change)="handleFileInput($event.target.files, fileUploadInput)" #fileUploadInput placeholder="{{ 'common.uploadFile' | translate }}" name="fileupload"></ngx-mat-file-input>
+    <img *ngIf="fileUploadInput.empty" class="file-upload-icon folder" src="../assets/icons/folder-icon.svg">
+    <img *ngIf="!fileUploadInput.empty" (click)="fileUploadInput.clear($event)" class="file-upload-icon cancel" src="../assets/icons/cancel-icon.svg">
+</mat-form-field>
+
+<button (click)="uploadFile()" [disabled]="!fileToUpload" class="upload-file-btn" mat-raised-button>{{ 'common.processText' | translate}}</button>
+
+<alert-warning-component *ngIf="alertWarningVisibility" [message]="errorMessage" (onHideAlert)="onHideAlert()"></alert-warning-component>

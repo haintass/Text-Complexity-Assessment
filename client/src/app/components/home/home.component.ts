@@ -1,7 +1,4 @@
 import { Component } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-import { FileTypes } from 'src/app/common/global-constants'
 
 @Component({
   selector: 'home-component',
@@ -12,43 +9,9 @@ export class HomeComponent {
   uploadFileMode: boolean = false;
   textIsProcessing: boolean = false;
 
-  alertWarningVisibility: boolean = false;
-  errorMessage: string;
+  constructor(){ }
 
-  fileControl: FormControl;
-  fileToUpload: File = null;
-
-  constructor(private http: HttpClient){
-  }
-
-  handleFileInput(files: FileList) {
-    this.fileToUpload = files.item(0);
-    const formData: FormData = new FormData();
-    formData.append('file', this.fileToUpload, this.fileToUpload.name);
-
-    if (this.fileToUpload.type != FileTypes.txt) {
-      this.alertWarningVisibility = true;
-      this.errorMessage = 'errors.incorrectFileExtension'
-    }
-    else {
-      this.textIsProcessing = true;
-
-      this.http.post('/api/uploadFile', formData)
-        .subscribe(
-          response => {
-            this.textIsProcessing = false;
-          console.log('success: ' + response);
-        },
-        response => {
-          this.textIsProcessing = false;
-          this.alertWarningVisibility = true;
-          this.errorMessage = response.error.errorType
-        }
-        )
-      }
-    }
-
-    onHideAlert(){
-      this.alertWarningVisibility = false;
+  onTextProcessing(textIsProcessing:boolean){
+    this.textIsProcessing = textIsProcessing;
   }
 }
