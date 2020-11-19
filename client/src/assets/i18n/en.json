@@ -1,0 +1,17 @@
+{
+    "common": {
+        "howDoYouWantToAddText": "Here you can choose how you want to add text",
+        "enterTextOption": "I want to enter text",
+        "uploadFileOption": "I want to upload a file",
+        "enterYourText": "Enter Your Text",
+        "uploadFile": "Upload File (.txt)",
+        "textIsProcessing": "Text is processing... Please wait"
+    },
+    "header": {
+        "navigation": {
+            "home": "Home",
+            "about": "About",
+            "contacts": "Contacts"
+        }
+    }
+}

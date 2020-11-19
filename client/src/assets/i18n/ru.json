@@ -1,0 +1,17 @@
+{
+    "common": {
+        "howDoYouWantToAddText": "Здесь вы можете выбрать, каким способом вы хотите добавить текст",
+        "enterTextOption": "Я хочу ввести текст",
+        "uploadFileOption": "Я хочу загрузить файл",
+        "enterYourText": "Введите текст",
+        "uploadFile": "Выберите файл (.txt)",
+        "textIsProcessing": "Текст обрабатывается ... Пожалуйста подождите"
+    },
+    "header": {
+        "navigation": {
+            "home": "Главная",
+            "about": "Инфо",
+            "contacts": "Связаться с нами"
+        }
+    }
+}

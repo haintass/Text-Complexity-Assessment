@@ -1,23 +1,23 @@
-<h1 style="text-align: center;">Here you can choose how you want to add text</h1>
+<h1 style="text-align: center;">{{ 'common.howDoYouWantToAddText' | translate }}</h1>
 
 <div class="card-container">
   <div [ngClass]="{'card-active':!uploadFileMode, 'card-inactive': uploadFileMode}" (click)="uploadFileMode = false" class="card card-small">
       <img class="card-icon" src="../assets/icons/text-icon.svg">
 
-    <span>I want to enter text</span>
+    <span>{{ 'common.enterTextOption' | translate }}</span>
   </div>
 
   <div [ngClass]="{'card-active':uploadFileMode, 'card-inactive': !uploadFileMode}" (click)="uploadFileMode = true" class="card card-small">
     <img class="card-icon" src="../assets/icons/upload-icon.svg">
 
-    <span>I want to upload a file</span>
+    <span>{{ 'common.uploadFileOption' | translate }}</span>
   </div>
 </div>
 
 <div [hidden]="textIsProcessing">
   <div [hidden]="!uploadFileMode">
     <mat-form-field [hidden]="uploadFileMode">
-      <ngx-mat-file-input (change)="handleFileInput($event.target.files)" #fileUploadInput formControlName="removablefile" placeholder="Upload File (.txt)"></ngx-mat-file-input>
+      <ngx-mat-file-input (change)="handleFileInput($event.target.files)" #fileUploadInput placeholder="{{ 'common.uploadFile' | translate }}" name="fileupload"></ngx-mat-file-input>
       <img *ngIf="fileUploadInput.empty" class="file-upload-icon folder" src="../assets/icons/folder-icon.svg">
       <img *ngIf="!fileUploadInput.empty" (click)="fileUploadInput.clear($event)" class="file-upload-icon cancel" src="../assets/icons/cancel-icon.svg">
     </mat-form-field>
@@ -25,7 +25,7 @@
   
   <div [hidden]="uploadFileMode">
     <mat-form-field [hidden]="!uploadFileMode" appearance="outline">
-      <mat-label>Enter Your Text</mat-label>
+      <mat-label>{{ 'common.enterYourText' | translate }}</mat-label>
       <textarea matInput></textarea>
     </mat-form-field>
   </div>
@@ -36,5 +36,5 @@
     <mat-spinner [diameter]="200"></mat-spinner>
   </div>
   
-  <h1 class="text-processing-description">Text is processing... Please wait</h1>
+  <h1 class="text-processing-description">{{ 'common.textIsProcessing' | translate }}</h1>
 </div>

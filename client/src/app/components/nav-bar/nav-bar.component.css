@@ -27,3 +27,18 @@
 .toolbar #twitter-logo:hover {
     opacity: 0.8;
 }
+
+.lang-dropdown {
+    position: absolute;
+    right: 20px;
+    bottom: 3px;
+    width: 50px;
+    font-size: 11pt;
+    text-align: center;
+}
+
+.nav-links a {
+    margin-right: 15px;
+    font-size: 13pt;
+    font-weight: 400;
+}

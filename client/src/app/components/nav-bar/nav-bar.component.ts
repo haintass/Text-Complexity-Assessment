@@ -1,4 +1,10 @@
 import { Component } from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
+
+interface Language{
+  value: string;
+  viewValue: string;
+}
 
 @Component({
   selector: 'nav-bar-component',
@@ -6,5 +12,23 @@ import { Component } from '@angular/core';
   styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent {
-  constructor() {}
+  selectedLang: string;
+  languages: Language[] = [
+    {value: 'en', viewValue: 'EN'},
+    {value: 'ru', viewValue: 'RU'}
+  ]
+
+  constructor(public translate: TranslateService) {
+    translate.addLangs(['en', 'ru']);
+    translate.setDefaultLang('en');
+
+    const browserLang = translate.getBrowserLang();
+
+    this.selectedLang = browserLang.match(/en|ru/) ? browserLang : 'en';
+    translate.use(this.selectedLang);
+  }
+
+  changeLanguage() {
+    this.translate.use(this.selectedLang);
+  }
 }
