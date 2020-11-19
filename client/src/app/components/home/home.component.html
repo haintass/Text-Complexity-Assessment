@@ -38,3 +38,5 @@
   
   <h1 class="text-processing-description">{{ 'common.textIsProcessing' | translate }}</h1>
 </div>
+
+<alert-warning-component *ngIf="alertWarningVisibility" [message]="errorMessage" (onHideAlert)="onHideAlert()"></alert-warning-component>

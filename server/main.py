@@ -21,11 +21,11 @@ def upload_file():
         data = file.read()
         return {'result': 'success'}, 200
     else:
-        return _return_error('Incorrect file extension.', 500)
+        return _return_error('errors.incorrectFileExtension', 500)
 
 
-def _return_error(message, status_code):
-    return {'message': message}, status_code
+def _return_error(error_type, status_code):
+    return {'errorType': error_type}, status_code
 
 
 if __name__ == "__main__":

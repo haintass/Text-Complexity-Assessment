@@ -1,8 +1,8 @@
 {
     "common": {
         "howDoYouWantToAddText": "Here you can choose how you want to add text",
-        "enterTextOption": "I want to enter text",
-        "uploadFileOption": "I want to upload a file",
+        "enterTextOption": "Enter text",
+        "uploadFileOption": "Upload file",
         "enterYourText": "Enter Your Text",
         "uploadFile": "Upload File (.txt)",
         "textIsProcessing": "Text is processing... Please wait"
@@ -13,5 +13,8 @@
             "about": "About",
             "contacts": "Contacts"
         }
+    },
+    "errors": {
+        "incorrectFileExtension": "You tried to upload a file with an unsupported extension. Please use .txt files"
     }
 }

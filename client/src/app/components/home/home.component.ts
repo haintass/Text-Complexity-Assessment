@@ -11,7 +11,9 @@ import { FileTypes } from 'src/app/common/global-constants'
 export class HomeComponent {
   uploadFileMode: boolean = false;
   textIsProcessing: boolean = false;
-  wrongFileExtension: boolean = false;
+
+  alertWarningVisibility: boolean = false;
+  errorMessage: string;
 
   fileControl: FormControl;
   fileToUpload: File = null;
@@ -25,7 +27,8 @@ export class HomeComponent {
     formData.append('file', this.fileToUpload, this.fileToUpload.name);
 
     if (this.fileToUpload.type != FileTypes.txt) {
-      this.wrongFileExtension = true;
+      this.alertWarningVisibility = true;
+      this.errorMessage = 'errors.incorrectFileExtension'
     }
     else {
       this.textIsProcessing = true;
@@ -38,9 +41,14 @@ export class HomeComponent {
         },
         response => {
           this.textIsProcessing = false;
-          console.log('error: ' + response.error.message);
+          this.alertWarningVisibility = true;
+          this.errorMessage = response.error.errorType
         }
         )
+      }
     }
-    }
+
+    onHideAlert(){
+      this.alertWarningVisibility = false;
+  }
 }

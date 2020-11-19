@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MaterialFileInputModule } from 'ngx-material-file-input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
     imports: [
@@ -16,7 +17,8 @@ import { MatSelectModule } from '@angular/material/select';
         MatIconModule,
         MaterialFileInputModule,
         MatProgressSpinnerModule,
-        MatSelectModule
+        MatSelectModule,
+        MatButtonModule
     ],
     exports: [
         MatButtonToggleModule,
@@ -25,7 +27,8 @@ import { MatSelectModule } from '@angular/material/select';
         MatIconModule,
         MaterialFileInputModule,
         MatProgressSpinnerModule,
-        MatSelectModule
+        MatSelectModule,
+        MatButtonModule
     ]
 })
 export class MaterialModule {}

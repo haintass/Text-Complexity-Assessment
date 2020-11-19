@@ -12,6 +12,7 @@ import { AboutComponent } from './components/about/about.component';
 import { BackGroundComponent } from './components/background/background.component';
 import { HomeComponent } from './components/home/home.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { AlertWarningComponent } from './components/alerts/alert-warning/alert-warning.component';
 /* CUSTOM COMPONENTS - ENDS */
 
 import { MaterialModule } from './modules/material.module';
@@ -32,7 +33,8 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     AboutComponent,
     BackGroundComponent,
     HomeComponent,
-    NavBarComponent
+    NavBarComponent,
+    AlertWarningComponent
   ],
   imports: [
     BrowserModule,
