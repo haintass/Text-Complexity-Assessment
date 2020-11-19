@@ -1,11 +1,11 @@
 {
     "common": {
         "howDoYouWantToAddText": "Здесь вы можете выбрать, каким способом вы хотите добавить текст",
-        "enterTextOption": "Я хочу ввести текст",
-        "uploadFileOption": "Я хочу загрузить файл",
+        "enterTextOption": "Ввести текст",
+        "uploadFileOption": "Загрузить файл",
         "enterYourText": "Введите текст",
         "uploadFile": "Выберите файл (.txt)",
-        "textIsProcessing": "Текст обрабатывается ... Пожалуйста подождите"
+        "textIsProcessing": "Текст обрабатывается... Пожалуйста подождите"
     },
     "header": {
         "navigation": {
@@ -13,5 +13,8 @@
             "about": "Инфо",
             "contacts": "Связаться с нами"
         }
+    },
+    "errors": {
+        "incorrectFileExtension": "Вы пытались загрузить файл с неподдерживаемым расширением. Пожалуйста используйте файлы формата .txt"
     }
 }
