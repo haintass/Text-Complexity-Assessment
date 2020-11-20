@@ -12,6 +12,7 @@ export class FileUploadComponent {
 
     alertWarningVisibility: boolean = false;
     errorMessage: string;
+    alertType: string;
   
     fileUploadInput: any = null;
     fileToUpload: File = null;
@@ -24,6 +25,11 @@ export class FileUploadComponent {
         this.fileUploadInput = fileUploadInput;
     }
 
+    clearFile(event: Event){
+        this.fileToUpload = null;
+        this.fileUploadInput.clear(event);
+    }
+
     uploadFile(){
         if (!this.fileToUpload){
             return;
@@ -32,10 +38,11 @@ export class FileUploadComponent {
         if (this.fileToUpload.type != FileTypes.txt) {
             this.alertWarningVisibility = true;
             this.errorMessage = 'errors.incorrectFileExtension';
+            this.alertType = 'alert-warning'
         }
         else {
             this.formData = new FormData();
-            this.formData.append('file', this.fileToUpload, this.fileToUpload.name);
+            this.formData.append('uploadedUserFile', this.fileToUpload, this.fileToUpload.name);
 
             this.onTextProcessing.emit(true);
           
@@ -50,6 +57,7 @@ export class FileUploadComponent {
                 response => {
                     this.alertWarningVisibility = true;
                     this.errorMessage = response.error.errorType;
+                    this.alertType = 'alert-danger';
 
                     this.onTextProcessing.emit(false);
                 }

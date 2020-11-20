@@ -1,9 +1,12 @@
 from flask import Flask, request
 
+from enums.errors_types import FileUploadErrors
+from enums.status_codes import SuccessStatusCodes, ServerErrorStatusCodes
+
 app = Flask(__name__)
 
 
-# settings cors policy
+# settings CORS policy
 @app.after_request
 def after_request(response):
     response.headers.add('Access-Control-Allow-Origin', 'http://localhost:4200')
@@ -15,17 +18,20 @@ def after_request(response):
 
 @app.route('/api/uploadFile', methods=['POST'])
 def upload_file():
-    file = request.files['file']
+    file = request.files.get('uploadedUserFile')
+
+    if file is None:
+        return _generate_server_error(FileUploadErrors.file_not_found)
 
     if file.mimetype == 'text/plain':
         data = file.read()
-        return {'result': 'success'}, 200
+        return {'result': 'success'}, SuccessStatusCodes.ok
     else:
-        return _return_error('errors.incorrectFileExtension', 500)
+        return _generate_server_error(FileUploadErrors.incorrect_file_extension)
 
 
-def _return_error(error_type, status_code):
-    return {'errorType': error_type}, status_code
+def _generate_server_error(error_type):
+    return {'errorType': error_type}, ServerErrorStatusCodes.internal_server_error
 
 
 if __name__ == "__main__":

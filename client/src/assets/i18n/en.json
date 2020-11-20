@@ -16,6 +16,7 @@
         }
     },
     "errors": {
-        "incorrectFileExtension": "You tried to upload a file with an unsupported extension. Please use .txt files"
+        "incorrectFileExtension": "You tried to upload a file with an unsupported extension. Please use .txt files",
+        "fileNotFound": "ERROR: File not found"
     }
 }
