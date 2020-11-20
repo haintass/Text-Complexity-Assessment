@@ -14,6 +14,7 @@ import { HomeComponent } from './components/home/home.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { AlertComponent } from './components/alert/alert.component';
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
+import { TextInputComponent } from './components/text-input/text-input.component';
 /* CUSTOM COMPONENTS - ENDS */
 
 import { MaterialModule } from './modules/material.module';
@@ -36,7 +37,8 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     HomeComponent,
     NavBarComponent,
     AlertComponent,
-    FileUploadComponent
+    FileUploadComponent,
+    TextInputComponent
   ],
   imports: [
     BrowserModule,

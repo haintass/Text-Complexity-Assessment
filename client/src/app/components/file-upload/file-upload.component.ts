@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, Input } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FileTypes } from 'src/app/common/global-constants';
 
@@ -46,7 +46,7 @@ export class FileUploadComponent {
 
             this.onTextProcessing.emit(true);
           
-            this.http.post('/api/uploadFile', this.formData)
+            this.http.post('/api/processFile', this.formData)
             .subscribe(
                 response => {
                     this.fileUploadInput.clear();

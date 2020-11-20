@@ -4,6 +4,6 @@
     <img *ngIf="!fileUploadInput.empty" (click)="clearFile($event)" class="file-upload-icon cancel" src="../assets/icons/cancel-icon.svg">
 </mat-form-field>
 
-<button (click)="uploadFile()" [disabled]="!fileToUpload" class="upload-file-btn" mat-raised-button>{{ 'common.processText' | translate}}</button>
+<button (click)="uploadFile()" [disabled]="!fileToUpload" class="primary-btn" mat-raised-button>{{ 'common.processText' | translate}}</button>
 
 <alert-component *ngIf="alertWarningVisibility" [message]="errorMessage" [alertType]="alertType" (onHideAlert)="onHideAlert()"></alert-component>

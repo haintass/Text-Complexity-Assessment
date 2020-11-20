@@ -1,4 +1,4 @@
-<h1 style="text-align: center;">{{ 'common.howDoYouWantToAddText' | translate }}</h1>
+<h1 class="main-heading">{{ 'common.howDoYouWantToAddText' | translate }}</h1>
 
 <div class="card-container">
   <div [ngClass]="{'card-active':!uploadFileMode, 'card-inactive': uploadFileMode}" (click)="uploadFileMode = false" class="card card-small">
@@ -15,16 +15,8 @@
 </div>
 
 <div [hidden]="textIsProcessing">
-  <file-upload-component [hidden]="!uploadFileMode" (onTextProcessing)="onTextProcessing($event)"></file-upload-component>
-  
-  <div [hidden]="uploadFileMode">
-    <mat-form-field [hidden]="!uploadFileMode" appearance="outline">
-      <mat-label>{{ 'common.enterYourText' | translate }}</mat-label>
-      <textarea matInput></textarea>
-    </mat-form-field>
-
-    <button class="upload-file-btn" mat-raised-button>{{ 'common.processText' | translate}}</button>
-  </div>
+  <file-upload-component [hidden]="!uploadFileMode" (onTextProcessing)="onTextProcessing($event)"></file-upload-component>  
+  <text-input-component [hidden]="uploadFileMode" (onTextProcessing)="onTextProcessing($event)"></text-input-component>
 </div>
 
 <div [hidden]="!textIsProcessing" class="text-processing-container">

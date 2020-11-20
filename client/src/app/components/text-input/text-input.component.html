@@ -1,0 +1,8 @@
+<mat-form-field appearance="outline">
+    <mat-label>{{ 'common.enterYourText' | translate }}</mat-label>
+    <textarea matInput [(ngModel)]="textForProcessing"></textarea>
+</mat-form-field>
+
+<button (click)="processText()" [disabled]="!textForProcessing" class="primary-btn" mat-raised-button>{{ 'common.processText' | translate}}</button>
+
+<alert-component *ngIf="alertWarningVisibility" [message]="errorMessage" [alertType]="alertType" (onHideAlert)="onHideAlert()"></alert-component>

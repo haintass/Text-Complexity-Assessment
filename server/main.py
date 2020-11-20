@@ -1,6 +1,6 @@
 from flask import Flask, request
 
-from enums.errors_types import FileUploadErrors
+from enums.errors_types import FileUploadErrors, TextProcessingErrors
 from enums.status_codes import SuccessStatusCodes, ServerErrorStatusCodes
 
 app = Flask(__name__)
@@ -16,8 +16,18 @@ def after_request(response):
     return response
 
 
-@app.route('/api/uploadFile', methods=['POST'])
-def upload_file():
+@app.route('/api/processText/', methods=['POST'])
+def process_text():
+    text_for_processing = request.data
+
+    if len(text_for_processing) == 0:
+        return _generate_server_error(TextProcessingErrors.text_not_found)
+
+    return {'result': 'success'}, SuccessStatusCodes.ok
+
+
+@app.route('/api/processFile', methods=['POST'])
+def process_file():
     file = request.files.get('uploadedUserFile')
 
     if file is None:
