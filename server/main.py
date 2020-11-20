@@ -18,7 +18,7 @@ def after_request(response):
 
 @app.route('/api/processText/', methods=['POST'])
 def process_text():
-    text_for_processing = request.data
+    text_for_processing = request.data.decode("utf-8")
 
     if len(text_for_processing) == 0:
         return _generate_server_error(TextProcessingErrors.text_not_found)
@@ -34,7 +34,7 @@ def process_file():
         return _generate_server_error(FileUploadErrors.file_not_found)
 
     if file.mimetype == 'text/plain':
-        data = file.read()
+        data = file.read().decode("utf-8")
         return {'result': 'success'}, SuccessStatusCodes.ok
     else:
         return _generate_server_error(FileUploadErrors.incorrect_file_extension)
