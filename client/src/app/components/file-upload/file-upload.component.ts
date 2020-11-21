@@ -47,21 +47,17 @@ export class FileUploadComponent {
             this.onTextProcessing.emit(true);
           
             this.http.post('/api/processFile', this.formData)
-            .subscribe(
-                response => {
-                    this.fileUploadInput.clear();
-                    this.fileToUpload = null;
-
-                    this.onTextProcessing.emit(false);
-                },
-                response => {
-                    this.alertWarningVisibility = true;
-                    this.errorMessage = response.error.errorType;
-                    this.alertType = 'alert-danger';
-
-                    this.onTextProcessing.emit(false);
-                }
-            )
+            .toPromise()
+            .then((res:any) => {
+                this.fileUploadInput.clear();
+                this.fileToUpload = null;
+            })
+            .catch((ex:any) => {
+                this.alertWarningVisibility = true;
+                this.errorMessage = ex.error.errorType;
+                this.alertType = 'alert-danger';
+            })
+            .finally(() => this.onTextProcessing.emit(false))
         }
     }
 

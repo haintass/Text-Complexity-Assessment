@@ -26,20 +26,16 @@ export class TextInputComponent {
             this.onTextProcessing.emit(true);
 
             this.http.post('api/processText', this.textForProcessing)
-            .subscribe(
-                response => {
-                    console.log('success: ' + response);
-
-                    this.onTextProcessing.emit(false);
-                },
-                response => {
-                    this.alertWarningVisibility = true;
-                    this.errorMessage = response.error.errorType;
-                    this.alertType = 'alert-danger';
-
-                    this.onTextProcessing.emit(false);
-                }
-            )
+            .toPromise()
+            .then((res:any) => {
+                console.log('success: ' + res.result);
+            })
+            .catch((ex:any) => {
+                this.alertWarningVisibility = true;
+                this.errorMessage = ex.error.errorType;
+                this.alertType = 'alert-danger';
+            })
+            .finally(() => this.onTextProcessing.emit(false));
         }
     }
 
