@@ -2,6 +2,7 @@ from flask import Flask, request
 
 from enums.errors_types import FileUploadErrors, TextProcessingErrors
 from enums.status_codes import SuccessStatusCodes, ServerErrorStatusCodes
+from services.text_assessment import calculate_text_complexity
 
 app = Flask(__name__)
 
@@ -23,7 +24,9 @@ def process_text():
     if len(text_for_processing) == 0:
         return _generate_server_error(TextProcessingErrors.text_not_found)
 
-    return {'result': 'success'}, SuccessStatusCodes.ok
+    result = calculate_text_complexity(text_for_processing)
+
+    return {'textComplexity': result}, SuccessStatusCodes.ok
 
 
 @app.route('/api/processFile', methods=['POST'])
@@ -34,8 +37,14 @@ def process_file():
         return _generate_server_error(FileUploadErrors.file_not_found)
 
     if file.mimetype == 'text/plain':
-        data = file.read().decode("utf-8")
-        return {'result': 'success'}, SuccessStatusCodes.ok
+        text_for_processing = file.read().decode("utf-8")
+
+        if len(text_for_processing) == 0:
+            return _generate_server_error(TextProcessingErrors.text_not_found)
+
+        result = calculate_text_complexity(text_for_processing)
+
+        return {'textComplexity': result}, SuccessStatusCodes.ok
     else:
         return _generate_server_error(FileUploadErrors.incorrect_file_extension)
 
