@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class TextInputComponent {
     @Output() onTextProcessing = new EventEmitter<boolean>();
+    @Output() onProcessingComplete = new EventEmitter<Number>();
 
     textForProcessing: string = null;
 
@@ -28,14 +29,16 @@ export class TextInputComponent {
             this.http.post('api/processText', this.textForProcessing)
             .toPromise()
             .then((res:any) => {
-                console.log('success: ' + res.result);
+                this.textForProcessing = null;
+                this.onProcessingComplete.emit(res.textComplexity);
             })
             .catch((ex:any) => {
                 this.alertWarningVisibility = true;
                 this.errorMessage = ex.error.errorType;
                 this.alertType = 'alert-danger';
-            })
-            .finally(() => this.onTextProcessing.emit(false));
+
+                this.onTextProcessing.emit(false)
+            });
         }
     }
 

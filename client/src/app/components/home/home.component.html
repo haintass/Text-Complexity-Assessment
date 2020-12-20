@@ -1,28 +1,36 @@
-<h1 class="main-heading">{{ 'common.howDoYouWantToAddText' | translate }}</h1>
+<h1 class="text-center">{{ 'common.howDoYouWantToAddText' | translate }}</h1>
 
 <div class="card-container">
-  <div [ngClass]="{'card-active':!uploadFileMode, 'card-inactive': uploadFileMode}" (click)="uploadFileMode = false" class="card card-small">
+  <div [ngClass]="{'card-active':!uploadFileMode, 'card-inactive': uploadFileMode}" (click)="chooseInputMode(false)" class="card card-small">
     <img class="card-icon" src="../assets/icons/text-icon.svg">
 
     <span>{{ 'common.enterTextOption' | translate }}</span>
   </div>
 
-  <div [ngClass]="{'card-active':uploadFileMode, 'card-inactive': !uploadFileMode}" (click)="uploadFileMode = true" class="card card-small">
+  <div [ngClass]="{'card-active':uploadFileMode, 'card-inactive': !uploadFileMode}" (click)="chooseInputMode(true)" class="card card-small">
     <img class="card-icon" src="../assets/icons/upload-icon.svg">
 
     <span>{{ 'common.uploadFileOption' | translate }}</span>
   </div>
 </div>
 
-<div [hidden]="textIsProcessing">
-  <file-upload-component [hidden]="!uploadFileMode" (onTextProcessing)="onTextProcessing($event)"></file-upload-component>  
-  <text-input-component [hidden]="uploadFileMode" (onTextProcessing)="onTextProcessing($event)"></text-input-component>
-</div>
-
-<div [hidden]="!textIsProcessing" class="text-processing-container">
-  <div class="text-processing-spinner">
-    <mat-spinner [diameter]="200"></mat-spinner>
+<div [hidden]="showAssessmentResult">
+  <div [hidden]="textIsProcessing">
+    <file-upload-component [hidden]="!uploadFileMode" (onTextProcessing)="onTextProcessing($event)" (onProcessingComplete)="onProcessingComplete($event)"></file-upload-component>  
+    <text-input-component [hidden]="uploadFileMode" (onTextProcessing)="onTextProcessing($event)" (onProcessingComplete)="onProcessingComplete($event)"></text-input-component>
   </div>
-  
-  <h1 class="text-processing-description">{{ 'common.textIsProcessing' | translate }}</h1>
+
+  <div [hidden]="!textIsProcessing" class="text-processing-container">
+    <div class="text-processing-spinner">
+      <mat-spinner [diameter]="200"></mat-spinner>
+    </div>
+
+    <h1 class="text-processing-description">{{ 'common.textIsProcessing' | translate }}</h1>
+  </div>
+</div>
+<div [hidden]="!showAssessmentResult">
+  <h1 class="text-center">Your result, bitch!</h1>
+  <span class="assessment-result">{{textAssessmentResult}}</span>
+
+  <button (click)="resetResult()" class="primary-btn" mat-raised-button>{{ 'common.tryAgain' | translate}}</button>
 </div>

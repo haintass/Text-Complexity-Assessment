@@ -5,3 +5,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-
 h1, h2, h3, h4, h5, span, a, p, div {
     caret-color: transparent;
 }
+
+.primary-btn {
+    font-size: 16pt;
+    width: 190px;
+    height: 45px;
+}

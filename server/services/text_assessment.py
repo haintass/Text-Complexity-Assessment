@@ -17,11 +17,11 @@ def calculate_text_complexity(text):
 
     result = (flesch_reading_ease_scale + common_words_rate) / 2
 
-    return result
+    return round(result) if result <= 100 else 100
 
 
 def _get_flesch_reading_ease_scale(average_sentence_length, average_word_length):
-    sentence_length_scale = 112 + (50 if average_sentence_length < 6 else 0) - average_sentence_length
+    sentence_length_scale = 112 + (100 if average_sentence_length < 6 else 0) - average_sentence_length
     word_length_scale = 106 - average_word_length
 
     return (sentence_length_scale + word_length_scale) / 2

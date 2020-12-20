@@ -9,6 +9,7 @@ import { FileTypes } from 'src/app/common/global-constants';
 })
 export class FileUploadComponent { 
     @Output() onTextProcessing = new EventEmitter<boolean>();
+    @Output() onProcessingComplete = new EventEmitter<Number>();
 
     alertWarningVisibility: boolean = false;
     errorMessage: string;
@@ -49,15 +50,19 @@ export class FileUploadComponent {
             this.http.post('/api/processFile', this.formData)
             .toPromise()
             .then((res:any) => {
+                console.log(res.textComplexity);
                 this.fileUploadInput.clear();
                 this.fileToUpload = null;
+                
+                this.onProcessingComplete.emit(res.textComplexity);
             })
             .catch((ex:any) => {
                 this.alertWarningVisibility = true;
                 this.errorMessage = ex.error.errorType;
                 this.alertType = 'alert-danger';
+
+                this.onTextProcessing.emit(false);
             })
-            .finally(() => this.onTextProcessing.emit(false))
         }
     }
 

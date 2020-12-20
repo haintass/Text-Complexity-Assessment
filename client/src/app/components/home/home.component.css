@@ -1,4 +1,4 @@
-.main-heading {
+.text-center {
     text-align: center;
 }
 
@@ -67,4 +67,20 @@
 .text-processing-description {
     text-align: center;
     margin-top: 25px;
+}
+
+.assessment-result {
+    border: 2px solid black;
+    border-radius: 100%;
+    border-width:thick;
+    font-size: 50px;
+    padding: 15px;
+    position: relative;
+    left: 200px;
+    top: 50px
+}
+
+.primary-btn {
+    top: 150px;
+    left: 60px;
 }

@@ -6,7 +6,8 @@
         "enterYourText": "Enter Your Text",
         "uploadFile": "Upload File (.txt)",
         "processText": "Estimate",
-        "textIsProcessing": "Text is processing... Please wait"
+        "textIsProcessing": "Text is processing... Please wait",
+        "tryAgain": "Try again"
     },
     "header": {
         "navigation": {

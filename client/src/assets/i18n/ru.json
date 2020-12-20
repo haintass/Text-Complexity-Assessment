@@ -6,7 +6,8 @@
         "enterYourText": "Введите текст",
         "uploadFile": "Выберите файл (.txt)",
         "processText": "Оценить",
-        "textIsProcessing": "Текст обрабатывается... Пожалуйста подождите"
+        "textIsProcessing": "Текст обрабатывается... Пожалуйста подождите",
+        "tryAgain": "Попробовать еще"
     },
     "header": {
         "navigation": {
