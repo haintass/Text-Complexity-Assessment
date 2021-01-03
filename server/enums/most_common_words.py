@@ -1,4 +1,4 @@
-common_words = {
+most_common_words = {
     'a',
     'ability',
     'able',
@@ -295,6 +295,7 @@ common_words = {
     'far',
     'fast',
     'father',
+    'dad',
     'fear',
     'federal',
     'feel',
@@ -530,6 +531,7 @@ common_words = {
     'morning',
     'most',
     'mother',
+    'mum',
     'mouth',
     'move',
     'movement',
@@ -606,6 +608,7 @@ common_words = {
     'painting',
     'paper',
     'parent',
+    'parents',
     'part',
     'participant',
     'particular',

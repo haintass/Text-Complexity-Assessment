@@ -1,5 +1,5 @@
 import re
-from enums.most_common_words import common_words
+from enums.most_common_words import most_common_words
 
 
 def calculate_text_complexity(text):
@@ -13,25 +13,37 @@ def calculate_text_complexity(text):
 
     flesch_reading_ease_scale = _get_flesch_reading_ease_scale(average_sentence_length, average_word_length)
     common_words_rate = _calc_rate_of_common_words_in_sentences(text_without_non_alphabet_chars, total_word_count)
-    repeated_sentences = dict((s, sentences.count(s)) for s in sentences)
+    text_uniqueness_rating = _get_text_uniqueness_rating(sentences)
 
-    result = (flesch_reading_ease_scale + common_words_rate) / 2
+    result = (flesch_reading_ease_scale + common_words_rate + text_uniqueness_rating) / 3
 
     return round(result) if result <= 100 else 100
 
 
 def _get_flesch_reading_ease_scale(average_sentence_length, average_word_length):
-    sentence_length_scale = 112 + (100 if average_sentence_length < 6 else 0) - average_sentence_length
-    word_length_scale = 106 - average_word_length
+    sentence_length_scale = 112 + (50 if average_sentence_length < 6 else -30) - average_sentence_length
+    word_length_scale = 100 - average_word_length
 
     return (sentence_length_scale + word_length_scale) / 2
 
 
+def _get_text_uniqueness_rating(sentences):
+    frequency_of_repeated_sentences = _calc_frequency_of_repeated_sentences(sentences)
+
+    return frequency_of_repeated_sentences + 90
+
+
+def _calc_frequency_of_repeated_sentences(sentences):
+    number_of_unique_sentences = len(set(sentences))
+
+    return 100 - (number_of_unique_sentences / len(sentences) * 100)
+
+
 def _calc_rate_of_common_words_in_sentences(text, total_word_count):
     common_word_count = 0
-    all_words = re.split(' ', text)
-    for word in all_words:
-        if word.lower() in (w.lower() for w in common_words):
+    all_text_words = re.split(' ', text)
+    for word in all_text_words:
+        if word.lower() in (w.lower() for w in most_common_words):
             common_word_count += 1
 
     return common_word_count / total_word_count * 100
