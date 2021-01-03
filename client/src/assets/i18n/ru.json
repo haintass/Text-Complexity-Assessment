@@ -1,13 +1,14 @@
 {
     "common": {
-        "howDoYouWantToAddText": "Здесь вы можете выбрать, каким способом вы хотите добавить текст",
+        "howDoYouWantToAddText": "Здесь вы можете выбрать способ ввода текста",
         "enterTextOption": "Ввести текст",
         "uploadFileOption": "Загрузить файл",
         "enterYourText": "Введите текст",
         "uploadFile": "Выберите файл (.txt)",
         "processText": "Оценить",
         "textIsProcessing": "Текст обрабатывается... Пожалуйста подождите",
-        "tryAgain": "Попробовать еще"
+        "tryAgain": "Повторить",
+        "textAssessment": "Оценка восприятия текста"
     },
     "header": {
         "navigation": {

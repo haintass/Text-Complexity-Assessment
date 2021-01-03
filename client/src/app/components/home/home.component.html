@@ -29,8 +29,8 @@
   </div>
 </div>
 <div [hidden]="!showAssessmentResult">
-  <h1 class="text-center">Your result, bitch!</h1>
-  <span class="assessment-result">{{textAssessmentResult}}</span>
+  <h1 class="text-center">{{ 'common.textAssessment' | translate}}</h1>
+  <div class="assessment-result circle">{{textAssessmentResult}}</div>
 
-  <button (click)="resetResult()" class="primary-btn" mat-raised-button>{{ 'common.tryAgain' | translate}}</button>
+  <button (click)="resetResult()" fxLayoutAlign="center" class="primary-btn" mat-raised-button>{{ 'common.tryAgain' | translate}}</button>
 </div>
