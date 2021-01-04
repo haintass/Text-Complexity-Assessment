@@ -1,42 +1,61 @@
+import math
 import re
 from enums.most_common_words import most_common_words
+from enums.regex_patterns import PerfectContinuousTensePatterns
 
 
 def calculate_text_complexity(text):
     text_without_non_alphabet_chars = _remove_non_alphabet_chars(text)
     sentences = _get_sentences(text)
+    sentences_count = len(sentences)
     total_word_count = _count_all_words(sentences)
 
     average_sentence_length, average_word_length = _calc_average_length_of_words_and_sentences(
-        text_without_non_alphabet_chars, sentences, total_word_count
+        text_without_non_alphabet_chars, sentences_count, total_word_count
     )
 
-    flesch_reading_ease_scale = _get_flesch_reading_ease_scale(average_sentence_length, average_word_length)
+    flesch_reading_ease_scale = _get_flesch_reading_ease_scale(average_sentence_length, average_word_length, sentences_count)
     common_words_rate = _calc_rate_of_common_words_in_sentences(text_without_non_alphabet_chars, total_word_count)
-    text_uniqueness_rating = _get_text_uniqueness_rating(sentences)
+    text_uniqueness_rating = _get_text_uniqueness_rating(sentences, sentences_count)
 
-    result = (flesch_reading_ease_scale + common_words_rate + text_uniqueness_rating) / 3
+    perfect_continuous_sentences_rating = _calc_occurrence_of_perfect_continuous_sentences(text, sentences_count)
+
+    result = (flesch_reading_ease_scale + common_words_rate + text_uniqueness_rating + perfect_continuous_sentences_rating) / 4
 
     return round(result) if result <= 100 else 100
 
 
-def _get_flesch_reading_ease_scale(average_sentence_length, average_word_length):
-    sentence_length_scale = 112 + (50 if average_sentence_length < 6 else -30) - average_sentence_length
-    word_length_scale = 100 - average_word_length
+def _calc_occurrence_of_perfect_continuous_sentences(text, sentences_count):
+    # the number of all interrogative sentences of present / past / future perfect continuous tense
+    all_interrogative_sentences = re.findall(PerfectContinuousTensePatterns.all_interrogative_sentences_pattern, text, flags=re.I | re.M)
+    # the number of all affirmative and negative sentences of present perfect continuous tense
+    present_sentences = re.findall(PerfectContinuousTensePatterns.present_and_future_sentences_pattern, text, flags=re.I | re.M)
+    # the number of all affirmative and negative sentences of past perfect continuous tense
+    past_sentences = re.findall(PerfectContinuousTensePatterns.past_sentences_pattern, text, flags=re.I | re.M)
 
-    return (sentence_length_scale + word_length_scale) / 2
+    perfect_continuous_sentences_count = len(all_interrogative_sentences) + len(present_sentences) + len(past_sentences)
+    perfect_continuous_sentences_percent = perfect_continuous_sentences_count / sentences_count * 100
+
+    return 100 - (perfect_continuous_sentences_percent * 5)
 
 
-def _get_text_uniqueness_rating(sentences):
-    frequency_of_repeated_sentences = _calc_frequency_of_repeated_sentences(sentences)
+def _get_flesch_reading_ease_scale(average_sentence_length, average_word_length, sentences_count):
+    sentence_length_scale = 112 + (50 - average_sentence_length) - (average_sentence_length * 5)
+    word_length_scale = 100 - (average_word_length * 3)
 
-    return frequency_of_repeated_sentences + 90
+    return (sentence_length_scale + word_length_scale - (math.log2(sentences_count) * 10)) / 3
 
 
-def _calc_frequency_of_repeated_sentences(sentences):
+def _get_text_uniqueness_rating(sentences, sentences_count):
+    frequency_of_repeated_sentences = _calc_frequency_of_repeated_sentences(sentences, sentences_count)
+
+    return frequency_of_repeated_sentences + 50
+
+
+def _calc_frequency_of_repeated_sentences(sentences, sentences_count):
     number_of_unique_sentences = len(set(sentences))
 
-    return 100 - (number_of_unique_sentences / len(sentences) * 100)
+    return 100 - (number_of_unique_sentences / sentences_count * 100)
 
 
 def _calc_rate_of_common_words_in_sentences(text, total_word_count):
@@ -49,8 +68,8 @@ def _calc_rate_of_common_words_in_sentences(text, total_word_count):
     return common_word_count / total_word_count * 100
 
 
-def _calc_average_length_of_words_and_sentences(text_without_non_alphabet_chars, sentences, total_word_count):
-    average_sentence_length = _calc_average_sentence_length(total_word_count, len(sentences))
+def _calc_average_length_of_words_and_sentences(text_without_non_alphabet_chars, sentences_count, total_word_count):
+    average_sentence_length = _calc_average_sentence_length(total_word_count, sentences_count)
     average_word_length = _calc_average_word_length(total_word_count, text_without_non_alphabet_chars)
 
     return average_sentence_length, average_word_length
