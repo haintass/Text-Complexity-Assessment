@@ -1,7 +1,7 @@
 import math
 import re
-from enums.most_common_words import most_common_words
-from enums.regex_patterns import PerfectContinuousTensePatterns
+from enums.common_enums import most_common_words
+from enums.regex_patterns import PerfectContinuousTensePatterns, PerfectTensePatterns
 
 
 def calculate_text_complexity(text):
@@ -15,41 +15,66 @@ def calculate_text_complexity(text):
     )
 
     flesch_reading_ease_scale = _get_flesch_reading_ease_scale(average_sentence_length, average_word_length, sentences_count)
-    common_words_rate = _calc_rate_of_common_words_in_sentences(text_without_non_alphabet_chars, total_word_count)
+    common_word_rating = _calc_rate_of_common_words_in_sentences(text_without_non_alphabet_chars, total_word_count)
     text_uniqueness_rating = _get_text_uniqueness_rating(sentences, sentences_count)
 
     perfect_continuous_sentences_rating = _calc_occurrence_of_perfect_continuous_sentences(text, sentences_count)
+    perfect_sentences_rating = _calc_occurrence_of_perfect_sentences(text, sentences_count)
 
-    result = (flesch_reading_ease_scale + common_words_rate + text_uniqueness_rating + perfect_continuous_sentences_rating) / 4
+    result = (flesch_reading_ease_scale + common_word_rating + text_uniqueness_rating + perfect_continuous_sentences_rating + perfect_sentences_rating) / 5
 
     return round(result) if result <= 100 else 100
 
 
 def _calc_occurrence_of_perfect_continuous_sentences(text, sentences_count):
     # the number of all interrogative sentences of present / past / future perfect continuous tense
-    all_interrogative_sentences = re.findall(PerfectContinuousTensePatterns.all_interrogative_sentences_pattern, text, flags=re.I | re.M)
+    all_interrogative_sentences = re.findall(
+        pattern=PerfectContinuousTensePatterns.all_interrogative_sentences_pattern,
+        string=text,
+        flags=re.I | re.M)
     # the number of all affirmative and negative sentences of present perfect continuous tense
-    present_sentences = re.findall(PerfectContinuousTensePatterns.present_and_future_sentences_pattern, text, flags=re.I | re.M)
-    # the number of all affirmative and negative sentences of past perfect continuous tense
-    past_sentences = re.findall(PerfectContinuousTensePatterns.past_sentences_pattern, text, flags=re.I | re.M)
+    all_affirmative_and_negative_sentences = re.findall(
+        pattern=PerfectContinuousTensePatterns.all_affirmative_and_negative_sentences_pattern,
+        string=text,
+        flags=re.I | re.M
+    )
 
-    perfect_continuous_sentences_count = len(all_interrogative_sentences) + len(present_sentences) + len(past_sentences)
+    perfect_continuous_sentences_count = len(all_interrogative_sentences) + len(all_affirmative_and_negative_sentences)
     perfect_continuous_sentences_percent = perfect_continuous_sentences_count / sentences_count * 100
 
     return 100 - (perfect_continuous_sentences_percent * 5)
 
 
-def _get_flesch_reading_ease_scale(average_sentence_length, average_word_length, sentences_count):
-    sentence_length_scale = 112 + (50 - average_sentence_length) - (average_sentence_length * 5)
-    word_length_scale = 100 - (average_word_length * 3)
+def _calc_occurrence_of_perfect_sentences(text, sentences_count):
+    all_interrogative_sentences = re.findall(
+        pattern=PerfectTensePatterns.all_interrogative_sentences_pattern,
+        string=text,
+        flags=re.I | re.M
+    )
 
-    return (sentence_length_scale + word_length_scale - (math.log2(sentences_count) * 10)) / 3
+    all_affirmative_and_negative_sentences = re.findall(
+        pattern=PerfectTensePatterns.all_affirmative_and_negative_sentences_pattern,
+        string=text,
+        flags=re.I | re.M
+    )
+
+    perfect_sentences_count = len(all_interrogative_sentences) + len(all_affirmative_and_negative_sentences)
+    perfect_sentences_percent = perfect_sentences_count / sentences_count * 100
+
+    return 100 - (perfect_sentences_percent * 3)
+
+
+def _get_flesch_reading_ease_scale(average_sentence_length, average_word_length, sentences_count):
+    sentence_length_scale = 112 + (50 - average_sentence_length) - (math.log(math.pow(average_sentence_length, 3)) * 5)
+    word_length_scale = 105 - math.pow(average_word_length, 2)
+
+    return (sentence_length_scale + word_length_scale - (0 if sentences_count < 45 else math.log2(sentences_count) * 10)) / 3
 
 
 def _get_text_uniqueness_rating(sentences, sentences_count):
     frequency_of_repeated_sentences = _calc_frequency_of_repeated_sentences(sentences, sentences_count)
 
-    return frequency_of_repeated_sentences + 50
+    return frequency_of_repeated_sentences + 30
 
 
 def _calc_frequency_of_repeated_sentences(sentences, sentences_count):
