@@ -14,6 +14,7 @@ def calculate_text_complexity(text):
     average_word_length = _calc_average_word_length(total_word_count, text_without_non_alphabet_chars)
 
     flesch_reading_ease_scale = _get_flesch_reading_ease_scale(average_sentence_length, average_word_length, sentences_count)
+
     common_words_scale = _get_occurrence_of_common_words_scale(text_without_non_alphabet_chars, total_word_count)
     text_repeatability_scale = _get_text_repeatability_scale(sentences, sentences_count)
 
@@ -82,7 +83,7 @@ def _get_flesch_reading_ease_scale(average_sentence_length, average_word_length,
     :param average_sentence_length:
     :param average_word_length:
     :param sentences_count:
-    :return: returns a number indicating the difficulty of reading English text.
+    :return: a number indicating the difficulty of reading English text.
      The larger the number, the easier it is to read the text.
     """
     sentence_length_scale = 120 - (math.log(math.pow(average_sentence_length, 5)) * 7)

@@ -58,7 +58,7 @@ export class FileUploadComponent {
             })
             .catch((ex:any) => {
                 this.alertWarningVisibility = true;
-                this.errorMessage = ex.error.errorType;
+                this.errorMessage = ex.error.errorType || 'errors.internalServerError';
                 this.alertType = 'alert-danger';
 
                 this.onTextProcessing.emit(false);

@@ -8,7 +8,7 @@
         "processText": "Estimate",
         "textIsProcessing": "Text is processing... Please wait",
         "tryAgain": "Try again",
-        "textAssessment": "Assessment of text perception"
+        "textAssessment": "Readability rating"
     },
     "header": {
         "navigation": {
@@ -20,6 +20,7 @@
     "errors": {
         "incorrectFileExtension": "You tried to upload a file with an unsupported extension. Please use .txt files",
         "fileNotFound": "ERROR: File not found",
-        "textNotFound": "Text not found. Please add some text and try again."
+        "textNotFound": "Text not found. Please add some text and try again.",
+        "internalServerError": "Ooops, something went wrong. Please, try again."
     }
 }

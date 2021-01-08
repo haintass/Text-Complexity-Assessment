@@ -41,4 +41,12 @@
     margin-right: 15px;
     font-size: 13pt;
     font-weight: 400;
+    cursor: pointer;
+    color: white;
+    text-decoration: none;
+}
+
+.nav-links a:hover {
+    text-decoration: underline;
+    color: rgb(245, 231, 205);
 }
