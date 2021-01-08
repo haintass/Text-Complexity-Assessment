@@ -10,7 +10,7 @@ export class HomeComponent {
   textIsProcessing: boolean = false;
 
   showAssessmentResult: boolean = false;
-  textAssessmentResult: Number = 0;
+  textAssessmentResult: any = {};
 
   constructor(){ }
 
@@ -21,13 +21,13 @@ export class HomeComponent {
 
   resetResult() {
     this.showAssessmentResult = false;
-    this.textAssessmentResult = 0;
+    this.textAssessmentResult = {};
   }
 
   onProcessingComplete(result:any){
     this.showAssessmentResult = true;
     this.textIsProcessing = false;
-    this.textAssessmentResult = result.totalRating;
+    this.textAssessmentResult = result;
   }
 
   onTextProcessing(textIsProcessing:boolean){

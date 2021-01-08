@@ -17,9 +17,9 @@ class AssessmentModel:
         self.common_words_percent = round(common_words_percent)
         self.text_repeatability_percent = round(text_repeatability_percent)
 
-        self.perfect_continuous_sentences_percent = perfect_continuous_sentences_percent
+        self.perfect_continuous_sentences_percent = round(perfect_continuous_sentences_percent)
+        self.perfect_sentences_percent = round(perfect_sentences_percent)
         self.perfect_continuous_sentences_rating = 100 - (perfect_continuous_sentences_percent * 5)
-        self.perfect_sentences_percent = perfect_sentences_percent
         self.perfect_sentences_rating = 100 - (perfect_sentences_percent * 3)
 
         result = (flesch_reading_ease_scale + common_words_percent + text_repeatability_percent +
@@ -33,8 +33,8 @@ class AssessmentModel:
             "totalRating": self.total_rating,
             "averageSentenceLength": self.average_sentence_length,
             "averageWordLength": self.average_word_length,
-            "fleschReadingEaseScale": self.flesch_reading_ease_scale,
             "commonWordsPercent": self.common_words_percent,
+            "fleschReadingEaseScale": self.flesch_reading_ease_scale,
             "textRepeatabilityPercent": self.text_repeatability_percent,
             "perfectContinuousSentencesPercent": self.perfect_continuous_sentences_percent,
             "perfectSentencesPercent": self.perfect_sentences_percent,

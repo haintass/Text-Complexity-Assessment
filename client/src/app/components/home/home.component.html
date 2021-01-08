@@ -30,7 +30,20 @@
 </div>
 <div [hidden]="!showAssessmentResult">
   <h1 class="text-center">{{ 'common.textAssessment' | translate}}</h1>
-  <div class="assessment-result circle">{{textAssessmentResult}}</div>
+  <div class="assessment-result circle">{{textAssessmentResult.totalRating}}</div>
+
+  <div class="assessment-details">
+    <span>{{ 'common.textAssessmentDetails' | translate }}</span>
+    <ul>
+      <li>{{ 'common.averageSentenceLength' | translate:{value: textAssessmentResult.averageSentenceLength} }}</li>
+      <li>{{ 'common.averageWordLength' | translate:{value: textAssessmentResult.averageWordLength} }}</li>
+      <li>{{ 'common.commonWordsPercent' | translate:{value: textAssessmentResult.commonWordsPercent} }}</li>  
+      <li>{{ 'common.fleschReadingEaseScale' | translate:{value: textAssessmentResult.fleschReadingEaseScale} }}</li>  
+      <li>{{ 'common.textRepeatabilityPercent' | translate:{value: textAssessmentResult.textRepeatabilityPercent} }}</li>  
+      <li>{{ 'common.perfectSentencesPercent' | translate:{value: textAssessmentResult.perfectSentencesPercent} }}</li>
+      <li>{{ 'common.perfectContinuousSentencesPercent' | translate:{value: textAssessmentResult.perfectContinuousSentencesPercent} }}</li>
+    </ul>
+  </div>
 
   <button (click)="resetResult()" fxLayoutAlign="center" class="primary-btn" mat-raised-button>{{ 'common.tryAgain' | translate}}</button>
 </div>
