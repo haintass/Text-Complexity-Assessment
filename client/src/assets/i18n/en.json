@@ -15,8 +15,8 @@
         "commonWordsPercent": "The percentage of the most common words in English is {{value}}%",
         "fleschReadingEaseScale": "The readability of the text on the Flesch reading scale is {{value}} points",
         "textRepeatabilityPercent": "Repeatability of text (percentage of identical sentences repeated more than once) is {{value}}%",
-        "perfectSentencesPercent": "The number of sentences in the past/present/future perfect tense is {{value}}%",
-        "perfectContinuousSentencesPercent": "The number of sentences in the past/present/future perfect continuous tense is {{value}}%"
+        "perfectSentencesPercent": "The number of sentences in perfect tense is {{value}}%",
+        "perfectContinuousSentencesPercent": "The number of sentences in perfect continuous tense is {{value}}%"
     },
     "header": {
         "navigation": {
@@ -34,5 +34,11 @@
     "about": {
         "commonDescription": "<p>Text Complexity Assessment is an online English text analysis tool that makes it easy to determine the complexity and readability of a foreign text.</p> <p>The tool supports two ways to enter data: via a textbox or by loading a .txt file.</p> <p>As a result of the analysis, the tool displays the overall readability rating of the text on a scale from 0 to 100. In addition, the tool provides additional information on the analysis of the text, such as: <ul><li>the average number of words per sentence</li> <li>the average number of characters per word</li> <li>the percentage of the most common English words</li> <li>index Flesch readability (<a href=\"https://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests\">Learn more</a>)</li> <li>the percentage of similar sentences in the text</li> <li>the percentage of sentences in perfect tense and perfect continuous tense</li></ul></p><p>Based on the information received, you will be able to understand the main criteria that complicate the understanding of the text as a foreign one.</p>",
         "warning": "Warning: the tool only works with English. Attempting to parse any other language will result in an incorrect result or error."
+    },
+    "contacts": {
+        "contactUs": "Contacts",
+        "gmail": "Gmail",
+        "github": "GitHub",
+        "vk": "vk"
     }
 }

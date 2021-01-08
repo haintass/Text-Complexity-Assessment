@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 /* CUSTOM COMPONENTS - BEGINS */
 import { AppComponent } from './app.component';
 import { AboutComponent } from './components/about/about.component';
+import { ContactsComponent } from './components/contacts/contacts.component';
 import { BackGroundComponent } from './components/background/background.component';
 import { HomeComponent } from './components/home/home.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
@@ -33,6 +34,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
   declarations: [
     AppComponent,
     AboutComponent,
+    ContactsComponent,
     BackGroundComponent,
     HomeComponent,
     NavBarComponent,
