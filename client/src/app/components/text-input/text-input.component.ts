@@ -30,7 +30,7 @@ export class TextInputComponent {
             .toPromise()
             .then((res:any) => {
                 this.textForProcessing = null;
-                this.onProcessingComplete.emit(res.textComplexity);
+                this.onProcessingComplete.emit(res.result);
             })
             .catch((ex:any) => {
                 this.alertWarningVisibility = true;

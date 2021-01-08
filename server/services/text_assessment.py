@@ -2,6 +2,7 @@ import math
 import re
 from enums.common_enums import most_common_words
 from enums.regex_patterns import PerfectContinuousTensePatterns, PerfectTensePatterns
+from data.assessment_model import AssessmentModel
 
 
 def calculate_text_complexity(text):
@@ -14,29 +15,20 @@ def calculate_text_complexity(text):
     average_word_length = _calc_average_word_length(total_word_count, text_without_non_alphabet_chars)
 
     flesch_reading_ease_scale = _get_flesch_reading_ease_scale(average_sentence_length, average_word_length, sentences_count)
-
     common_words_scale = _get_occurrence_of_common_words_scale(text_without_non_alphabet_chars, total_word_count)
-    text_repeatability_scale = _get_text_repeatability_scale(sentences, sentences_count)
 
-    perfect_continuous_sentences_rating = _calc_occurrence_of_perfect_continuous_sentences(text, sentences_count)
-    perfect_sentences_rating = _calc_occurrence_of_perfect_sentences(text, sentences_count)
+    text_repeatability_percent = _get_text_repeatability_percent(sentences, sentences_count)
+    perfect_continuous_sentences_percent = _calc_perfect_continuous_sentences_percent(text, sentences_count)
+    perfect_sentences_percent = _calc_perfect_sentences_percent(text, sentences_count)
 
-    result = _calc_text_complexity(flesch_reading_ease_scale, common_words_scale, text_repeatability_scale,
-                                   perfect_continuous_sentences_rating, perfect_sentences_rating)
+    assessment_model = AssessmentModel(average_sentence_length, average_word_length, flesch_reading_ease_scale,
+                                       common_words_scale, text_repeatability_percent,
+                                       perfect_continuous_sentences_percent, perfect_sentences_percent)
 
-    return result
-
-
-def _calc_text_complexity(flesch_reading_ease_scale, common_words_scale, text_repeatability_scale,
-                          perfect_continuous_sentences_rating, perfect_sentences_rating):
-    result = (flesch_reading_ease_scale + common_words_scale + text_repeatability_scale + (
-                perfect_continuous_sentences_rating + perfect_sentences_rating) * 0.5) / 4
-
-    # the result should be between 0 and 100
-    return round(result) if 0 < result < 100 else 0 if result < 0 else 100
+    return assessment_model
 
 
-def _calc_occurrence_of_perfect_continuous_sentences(text, sentences_count):
+def _calc_perfect_continuous_sentences_percent(text, sentences_count):
     # all interrogative sentences of the present, past and future perfect continuous tenses
     all_interrogative_sentences = re.findall(
         pattern=PerfectContinuousTensePatterns.all_interrogative_sentences_pattern,
@@ -53,10 +45,10 @@ def _calc_occurrence_of_perfect_continuous_sentences(text, sentences_count):
     perfect_continuous_sentences_count = len(all_interrogative_sentences) + len(all_affirmative_and_negative_sentences)
     perfect_continuous_sentences_percent = perfect_continuous_sentences_count / sentences_count * 100
 
-    return 100 - (perfect_continuous_sentences_percent * 5)
+    return perfect_continuous_sentences_percent
 
 
-def _calc_occurrence_of_perfect_sentences(text, sentences_count):
+def _calc_perfect_sentences_percent(text, sentences_count):
     # all interrogative sentences of the present, past and future perfect tenses
     all_interrogative_sentences = re.findall(
         pattern=PerfectTensePatterns.all_interrogative_sentences_pattern,
@@ -74,7 +66,7 @@ def _calc_occurrence_of_perfect_sentences(text, sentences_count):
     perfect_sentences_count = len(all_interrogative_sentences) + len(all_affirmative_and_negative_sentences)
     perfect_sentences_percent = perfect_sentences_count / sentences_count * 100
 
-    return 100 - (perfect_sentences_percent * 3)
+    return perfect_sentences_percent
 
 
 def _get_flesch_reading_ease_scale(average_sentence_length, average_word_length, sentences_count):
@@ -92,7 +84,7 @@ def _get_flesch_reading_ease_scale(average_sentence_length, average_word_length,
     return (sentence_length_scale + word_length_scale - (0 if sentences_count < 45 else math.log2(sentences_count) * 10)) / math.log2(average_word_length)
 
 
-def _get_text_repeatability_scale(sentences, sentences_count):
+def _get_text_repeatability_percent(sentences, sentences_count):
     # calculates the percentage of duplicate sentences
     number_of_unique_sentences = len(set(sentences))
     return 100 - (number_of_unique_sentences / sentences_count * 100)

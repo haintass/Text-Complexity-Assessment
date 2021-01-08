@@ -50,11 +50,10 @@ export class FileUploadComponent {
             this.http.post('/api/processFile', this.formData)
             .toPromise()
             .then((res:any) => {
-                console.log(res.textComplexity);
                 this.fileUploadInput.clear();
                 this.fileToUpload = null;
                 
-                this.onProcessingComplete.emit(res.textComplexity);
+                this.onProcessingComplete.emit(res.result);
             })
             .catch((ex:any) => {
                 this.alertWarningVisibility = true;

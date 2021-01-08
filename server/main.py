@@ -6,7 +6,6 @@ from services.text_assessment import calculate_text_complexity
 
 app = Flask(__name__)
 
-
 # settings CORS policy
 @app.after_request
 def after_request(response):
@@ -26,7 +25,7 @@ def process_text():
 
     result = calculate_text_complexity(text_for_processing)
 
-    return {'textComplexity': result}, SuccessStatusCodes.ok
+    return {'result': result.to_json()}, SuccessStatusCodes.ok
 
 
 @app.route('/api/processFile', methods=['POST'])
@@ -44,7 +43,7 @@ def process_file():
 
         result = calculate_text_complexity(text_for_processing)
 
-        return {'textComplexity': result}, SuccessStatusCodes.ok
+        return {'result': result.to_json()}, SuccessStatusCodes.ok
     else:
         return _generate_server_error(FileUploadErrors.incorrect_file_extension)
 

@@ -24,10 +24,10 @@ export class HomeComponent {
     this.textAssessmentResult = 0;
   }
 
-  onProcessingComplete(result:Number){
+  onProcessingComplete(result:any){
     this.showAssessmentResult = true;
     this.textIsProcessing = false;
-    this.textAssessmentResult = result;
+    this.textAssessmentResult = result.totalRating;
   }
 
   onTextProcessing(textIsProcessing:boolean){
