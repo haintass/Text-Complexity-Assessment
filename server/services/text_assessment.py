@@ -15,14 +15,15 @@ def calculate_text_complexity(text):
     average_word_length = _calc_average_word_length(total_word_count, text_without_non_alphabet_chars)
 
     flesch_reading_ease_scale = _get_flesch_reading_ease_scale(average_sentence_length, average_word_length, sentences_count)
-    common_words_scale = _get_occurrence_of_common_words_scale(text_without_non_alphabet_chars, total_word_count)
 
+    common_words_percent = _get_occurrence_of_common_words_percent(text_without_non_alphabet_chars, total_word_count)
     text_repeatability_percent = _get_text_repeatability_percent(sentences, sentences_count)
+
     perfect_continuous_sentences_percent = _calc_perfect_continuous_sentences_percent(text, sentences_count)
     perfect_sentences_percent = _calc_perfect_sentences_percent(text, sentences_count)
 
     assessment_model = AssessmentModel(average_sentence_length, average_word_length, flesch_reading_ease_scale,
-                                       common_words_scale, text_repeatability_percent,
+                                       common_words_percent, text_repeatability_percent,
                                        perfect_continuous_sentences_percent, perfect_sentences_percent)
 
     return assessment_model
@@ -90,7 +91,7 @@ def _get_text_repeatability_percent(sentences, sentences_count):
     return 100 - (number_of_unique_sentences / sentences_count * 100)
 
 
-def _get_occurrence_of_common_words_scale(text, total_word_count):
+def _get_occurrence_of_common_words_percent(text, total_word_count):
     """
     calculates the percentage of the most common English words in the text
     :param text:
