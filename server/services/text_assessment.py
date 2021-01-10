@@ -14,7 +14,7 @@ def calculate_text_complexity(text):
     average_sentence_length = _calc_average_sentence_length(total_word_count, sentences_count)
     average_word_length = _calc_average_word_length(total_word_count, text_without_non_alphabet_chars)
 
-    flesch_reading_ease_scale = _get_flesch_reading_ease_scale(average_sentence_length, average_word_length, sentences_count)
+    flesch_reading_ease_scale = _get_flesch_reading_ease_scale(average_sentence_length, average_word_length)
 
     common_words_percent = _get_occurrence_of_common_words_percent(text_without_non_alphabet_chars, total_word_count)
     text_repeatability_percent = _get_text_repeatability_percent(sentences, sentences_count)
@@ -70,19 +70,24 @@ def _calc_perfect_sentences_percent(text, sentences_count):
     return perfect_sentences_percent
 
 
-def _get_flesch_reading_ease_scale(average_sentence_length, average_word_length, sentences_count):
+def _get_flesch_reading_ease_scale(average_sentence_length, average_word_length):
     """
     calculates the Flesch reading ease scale to indicate how difficult a text in English is to understand
     :param average_sentence_length:
     :param average_word_length:
-    :param sentences_count:
     :return: a number indicating the difficulty of reading English text.
      The larger the number, the easier it is to read the text.
     """
     sentence_length_scale = 120 - (math.log(math.pow(average_sentence_length, 5)) * 7)
     word_length_scale = 105 - math.pow(average_word_length, 2)
 
-    return (sentence_length_scale + word_length_scale - (0 if sentences_count < 45 else math.log2(sentences_count) * 10)) / math.log2(average_word_length)
+    return (
+                   sentence_length_scale + word_length_scale -
+                   (
+                       (0 if average_word_length < 7 else math.log2(average_word_length) * 10) +
+                       (0 if average_sentence_length < 15 else math.log2(average_sentence_length) * 8)
+                   )
+           ) / math.log2(average_word_length)
 
 
 def _get_text_repeatability_percent(sentences, sentences_count):
