@@ -19,11 +19,12 @@ class AssessmentModel:
 
         self.perfect_continuous_sentences_percent = round(perfect_continuous_sentences_percent)
         self.perfect_sentences_percent = round(perfect_sentences_percent)
-        self.perfect_continuous_sentences_rating = 100 - (perfect_continuous_sentences_percent * 5)
-        self.perfect_sentences_rating = 100 - (perfect_sentences_percent * 3)
+
+        perfect_continuous_sentences_rating = 100 - (perfect_continuous_sentences_percent * 5)
+        perfect_sentences_rating = 100 - (perfect_sentences_percent * 3)
 
         result = (flesch_reading_ease_scale + common_words_percent + text_repeatability_percent +
-                  (self.perfect_continuous_sentences_rating + self.perfect_sentences_rating) * 0.5) / 4
+                  (perfect_continuous_sentences_rating + perfect_sentences_rating) * 0.5) / 4
 
         # the total rating should be between 0 and 100
         self.total_rating = round(result) if 0 < result < 100 else 0 if result < 0 else 100
