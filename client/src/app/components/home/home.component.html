@@ -29,8 +29,10 @@
   </div>
 </div>
 <div [hidden]="!showAssessmentResult">
-  <h1 class="text-center">{{ 'common.textAssessment' | translate}}</h1>
+  <h1 class="text-center">{{ 'common.textAssessment' | translate }}</h1>
   <div class="assessment-result circle">{{textAssessmentResult.totalRating}}</div>
+
+  <div class="text-center user-tip">{{ tipForUser | translate }}</div>
 
   <div class="assessment-details">
     <span>{{ 'common.textAssessmentDetails' | translate }}</span>
